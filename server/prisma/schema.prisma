@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int        @id @default(autoincrement())
+  username      String     @unique
+  email         String     @unique
+  password      String
+  darkMode      Boolean    @default(false)      // Preferencia de modo oscuro
+  notifications Boolean    @default(true)       // Configuración de notificaciones
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  projects      Project[]
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  tasks       Task[]
+}
+
+model Task {
+  id           Int         @id @default(autoincrement())
+  title        String
+  description  String?
+  status       TaskStatus  @default(PENDING)
+  priority     Priority    @default(MEDIUM)
+  startDate    DateTime?   // Fecha de inicio de la tarea
+  dueDate      DateTime?   // Fecha de vencimiento de la tarea
+  completedAt  DateTime?   // Fecha en que se completó la tarea
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  projectId    Int
+  project      Project     @relation(fields: [projectId], references: [id])
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
