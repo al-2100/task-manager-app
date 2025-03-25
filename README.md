@@ -40,6 +40,8 @@ This repository contains **both the frontend and backend** for the Task Manager 
 │   ├── prisma/         # Database schema and migrations
 │   ├── app.js
 │   └── .env
+├── .github/        # GitHub configurations
+│   └── workflows/  # CI/CD pipeline definitions
 ├── README.md
 └── ...             # Other files and configurations
 ```
@@ -76,6 +78,18 @@ The backend is an API server built with Node.js and Express, providing RESTful e
 - Node.js, Express.js, Prisma, PostgreSQL, JWT, Jest, Supertest.
 
 For more details, see the README in the `server/` folder.
+
+## CI/CD Pipeline
+
+This project includes automated CI/CD pipelines implemented with GitHub Actions:
+
+- **Main Pipeline**: Runs tests and builds Docker images for both frontend and backend
+- **PR Checks**: Runs linting on pull requests before merging
+
+The pipelines verify:
+- Backend tests with a real PostgreSQL database
+- Frontend tests and build process
+- Docker image builds to ensure containerization works correctly
 
 ## Getting Started
 

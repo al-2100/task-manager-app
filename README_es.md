@@ -40,6 +40,8 @@ Este repositorio contiene **tanto el frontend como el backend** de la aplicació
 │   ├── prisma/         # Esquema y migraciones de base de datos
 │   ├── app.js
 │   └── .env
+├── .github/        # Configuraciones de GitHub
+│   └── workflows/  # Definiciones de pipelines CI/CD
 ├── README.md
 └── ...             # Otros archivos y configuraciones
 ```
@@ -75,6 +77,19 @@ El backend es un servidor API construido con Node.js y Express, proporcionando e
 - Node.js, Express.js, Prisma, PostgreSQL, JWT, Jest, Supertest.
 
 Para más detalles, consulta el README en la carpeta `server/`.
+
+## Pipeline de CI/CD
+
+Este proyecto incluye pipelines automatizados de CI/CD implementados con GitHub Actions:
+
+- **Pipeline principal**: Ejecuta pruebas y construye imágenes Docker tanto para el frontend como para el backend.
+- **Verificación de PR**: Ejecuta el lint en los pull requests antes de fusionarlos.
+
+Los pipelines verifican:
+- Pruebas del backend con una base de datos PostgreSQL real.
+- Pruebas y proceso de construcción del frontend.
+- Construcción de imágenes Docker para asegurar que la containerización funcione correctamente.
+
 
 ## Comenzando
 
