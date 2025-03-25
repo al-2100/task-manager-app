@@ -1,0 +1,18 @@
+FROM node:18-alpine
+WORKDIR /app
+
+# Instalar dependencias de compilación para módulos nativos (como bcrypt)
+RUN apk add --no-cache python3 make g++
+
+# Copiar package.json y package-lock.json para instalar dependencias
+COPY package*.json ./
+RUN npm install
+
+# Copiar el resto de archivos del proyecto
+COPY . .
+
+# Generar los clientes de Prisma necesarios para conectarse a la base de datos
+RUN npx prisma generate
+
+EXPOSE 5000
+CMD ["npm", "run", "dev"]
