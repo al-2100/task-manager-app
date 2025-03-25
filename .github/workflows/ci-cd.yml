@@ -74,9 +74,9 @@ jobs:
           
       - name: Install dependencies
         run: npm ci
-        
-      - name: Run tests
-        run: npm test
+# Activar cuando se tengan pruebas en el frontend       
+#      - name: Run tests
+#        run: npm test
         
       - name: Build frontend
         run: npm run build
